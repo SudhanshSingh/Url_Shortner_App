@@ -43,7 +43,7 @@ const createUrl = async (req, res) => {
                 if (!validUrl.isUri(longUrl)) {
                     return res.status(400).send({status:false, msg:'Invalid  LongUrl'})
                 }
-            let cachedUrlData = await GET_ASYNC(`${longUrl}`);
+            let cachedUrlData = await GET_ASYNC(`${longUrl}`);    // templet string
             if (cachedUrlData) {
                 return res.status(200).send({ status: true, message: "This Url is already shorten", data: cachedUrlData });
             } else {
@@ -59,10 +59,13 @@ const createUrl = async (req, res) => {
                     shortUrl: urlCreated.shortUrl,
                     urlCode: urlCreated.urlCode
                 };
-
                 await SET_ASYNC(`${longUrl}`, (urlDetails.shortUrl));
-                res.status(201).send({ status: true, data: urlDetails });
+                res.status(201).send({ status: true, data: urlDetails});
             }
+
+            //     await SET_ASYNC(`${longUrl}`, (urlCreated.shortUrl));
+            //     res.status(201).send({ status: true, data: urlCreated });
+            // }
         } else {
             return res.status(400).send({ status: false, message: "Requested body cannot remain empty please provide some data" })
         }
