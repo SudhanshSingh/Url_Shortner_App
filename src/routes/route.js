@@ -10,15 +10,14 @@ router.get('/geturl', UrlController.myUrls);
 
 
 // console.log(path.resolve("build","index.html"))
-// router.all("*",function(req,res){
-//    res.sendFile(path.resolve("build","index.html"))
-//   // res.sendFile(path.resolve(__dirname,build,index.html))
-// });
+router.all("*",function(req,res){
+   res.sendFile(path.resolve("build","index.html"))
+});
 
-router.all("/*",function(req,res){
-    res.status(400).send({
-        status:false,msg:"The endpoint is not correct"
-    });
-  });
+// router.all("/*",function(req,res){
+//     res.status(400).send({
+//         status:false,msg:"The endpoint is not correct"
+//     });
+//   });
 
 module.exports = router;
