@@ -3,6 +3,7 @@ const ShortId = require("shortid");
 const redis= require("redis");
 const validUrl = require("valid-url");
 const { promisify } = require("util");
+const urlModel = require("../models/urlModel.js");
 
 const isValid = function (value) {
   if (typeof value === "undefined" || value === null) return false;
@@ -11,11 +12,11 @@ const isValid = function (value) {
 };
 
 const redisClient = redis.createClient(
-  10749,
-  "redis-10749.c264.ap-south-1-1.ec2.cloud.redislabs.com",
+  14359,
+  "redis-14359.c301.ap-south-1-1.ec2.cloud.redislabs.com",
   {no_ready_check:true}
 );
-redisClient.auth('EjKpokm9pI3jfFztisV6FOQmzNMwbRMT',function(err){
+redisClient.auth('3ciByhnROZ8lLQ9mgysqAgNSWLPpV2eH',function(err){
   if(err)throw err;
 });
 
@@ -91,6 +92,21 @@ const createUrl = async (req, res) => {
   }
 };
 
+
+//------------------- --get Urls------------------------------------
+
+const myUrls= async function(req,res){
+  try{
+  let data= await urlModel.find().sort({createdAt:-1})
+  // console.log("data",data)
+  return res.status(200).send({status:true,message:'Your Urls',data:data})
+}catch(err){
+  return res.status(500).send({status:false,message:err.message})
+}
+}
+
+
+
 const getUrl = async (req, res) => {
   try {
     const urlCode = req.params.urlCode;
@@ -117,5 +133,8 @@ const getUrl = async (req, res) => {
   }
 };
 
+
+
 module.exports.createUrl = createUrl;
 module.exports.getUrl = getUrl;
+module.exports.myUrls = myUrls;
