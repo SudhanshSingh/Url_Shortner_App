@@ -61,7 +61,7 @@ const createUrl = async (req, res) => {
           });
       } else {
         const urlId = ShortId.generate();
-        const urlShort = "/" + urlId;
+        const urlShort = baseUrl+"/" + urlId;
         req.body.shortUrl = urlShort;
         req.body.urlCode = urlId;
 
