@@ -5,11 +5,11 @@ const router = express.Router();
 const UrlController = require('../controllers/urlController.js');
 
 router.post('/url/shorten', UrlController.createUrl);
-router.get('/geturl', UrlController.myUrls);
+router.get('/url/geturl', UrlController.myUrls);
  router.get('/:urlCode', UrlController.getUrl);
 
 
-// console.log(path.resolve("build","index.html"))
+//  console.log(path.resolve("build","index.html"))
 router.all("*",function(req,res){
    res.sendFile(path.resolve("build","index.html"))
 });

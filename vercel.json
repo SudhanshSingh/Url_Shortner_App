@@ -12,10 +12,6 @@
     ],
     "routes":[
         {
-            "src": "/geturl",
-            "dest": "src/index.js"
-        },
-        {
             "src": "/url/(.*)",
             "dest": "src/index.js"
         },
